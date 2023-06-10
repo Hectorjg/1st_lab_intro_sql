@@ -1,0 +1,38 @@
+select * from sakila.actor
+where first_name = 'Scarlett';
+
+select * from sakila.actor
+where last_name = 'Johansson';
+
+select count(distinct film_id) from sakila.rental
+join sakila.inventory
+on rental.inventory_id=inventory.inventory_id
+order by rental_id;
+
+select count(*) from sakila.rental;
+
+select count(*) from sakila.film;
+
+select *, datediff(return_date, rental_date) as rental_period from sakila.rental
+where datediff(return_date, rental_date) is not null
+order by datediff(return_date, rental_date);
+
+select max(length) as max_duration, min(length) as min_duration
+from sakila.film;
+
+select avg(length) as avg_duration from sakila.film;
+
+select floor(avg(length)/60) as hours,
+floor(avg(length)%60) as minutes
+from sakila.film;
+
+select count(*) from sakila.film
+where length/60 > 3;
+
+select *,concat(lower(first_name),'.', lower(last_name),'@sakila.customer.org') as customer_email
+from sakila.actor;
+
+select *, length(title) as title_length
+from sakila.film
+order by length(title) desc
+limit 1;
