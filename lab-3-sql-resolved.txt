@@ -1,0 +1,40 @@
+use sakila;
+
+select count(distinct(last_name))
+from sakila.actor;
+
+select count(distinct(language_id))
+from sakila.film;
+
+select count(rating) from sakila.film
+where rating = 'PG-13';
+
+select title, length, release_year from sakila.film
+where release_year = 2006
+order by length desc
+limit 10; 
+
+select datediff(max(rental_date), min(rental_date))
+from sakila.rental;
+
+
+
+select *, date_format(rental_date,'%M') as month,
+date_format(rental_date, '%W') as day_of_week
+from sakila.rental
+limit 20;
+
+select *, date_format(rental_date,'%M') as month,
+date_format(rental_date, '%w') as day_of_week,
+case
+when date_format(rental_date, '%w') in (1,2,3,4,5,6) then 'weekend'
+else'weekend'
+end AS day_type
+from sakila.rental;
+
+select date_format(max(rental_date), '%M') from sakila.rental;
+
+select count(*)
+from sakila.rental
+where date_format(rental_date, '%Y') = 2006
+and date_format(rental_date, '%M') = 'February';
